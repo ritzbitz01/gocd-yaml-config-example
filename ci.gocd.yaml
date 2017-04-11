@@ -73,6 +73,24 @@ pipelines:
                    - docker
                    - version
 
+              - exec: # run command that executes the tests
+                   command: sudo
+                   arguments:
+                   - docker
+                   - exec
+                   - helloworld_web_1
+                   - whoami
+
+              - exec: # run command that executes the tests
+                   command: sudo
+                   arguments:
+                   - docker
+                   - exec
+                   - helloworld_web_1
+                   - ls
+                   - -lah
+
+
                - exec: # run command that executes the tests
                    command: sudo
                    arguments:
