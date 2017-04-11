@@ -47,7 +47,12 @@ pipelines:
                    - 4
 
                - exec: # run command that executes the tests
-                   command: hello_world/run_test.sh
+                   command: sudo
+                   arguments:
+                   - docker
+                   - exec
+                   - helloworld_web_1
+                   - ./run_test.sh
 
                - exec: # Spin down containers used by application under test
                    run_if: any
