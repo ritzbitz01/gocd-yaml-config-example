@@ -60,6 +60,12 @@ pipelines:
                    - -lah
                    - /var/run/
 
+               - exec: # test
+                   command: cat
+                   arguments:
+                   - /etc/passwd
+
+
 
                - exec: # test
                    command: sudo
