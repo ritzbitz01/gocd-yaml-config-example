@@ -99,6 +99,14 @@ pipelines:
                    command: sudo
                    arguments:
                    - docker
+                   - inspect
+                   - helloworld_web_1
+
+
+               - exec: # run command that executes the tests
+                   command: sudo
+                   arguments:
+                   - docker
                    - exec
                    - helloworld_web_1
                    - cat
