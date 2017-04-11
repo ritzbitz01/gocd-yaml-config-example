@@ -58,7 +58,7 @@ pipelines:
 
 
                - exec: # run command that executes the tests
-                   command: sudo
+                   command: DOCKER_API_VERSION=${DOCKER_API_VERSION} sudo
                    arguments:
                    - docker
                    - exec
