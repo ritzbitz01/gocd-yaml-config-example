@@ -73,6 +73,12 @@ pipelines:
                    - docker
                    - version
 
+               - exec: # test
+                   command: sudo
+                   arguments:
+                   - docker-compose
+                   - version
+
                - exec: # run command that executes the tests
                    command: sudo
                    arguments:
