@@ -101,6 +101,14 @@ pipelines:
                    arguments:
                    - -lah
 
+               - exec: # test
+                   command: ls
+                   arguments:
+                   - -lah
+                   - hello_world
+
+
+
                - exec: # run command that executes the tests
                    command: sudo
                    arguments:
