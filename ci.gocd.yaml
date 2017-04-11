@@ -70,6 +70,7 @@ pipelines:
                - exec: # test
                    command: sudo
                    arguments:
+                   - -E
                    - docker
                    - version
 
