@@ -46,6 +46,13 @@ pipelines:
                    arguments:
                    - 4
 
+               - exec: # test
+                   command: sudo
+                   arguments:
+                   - docker
+                   - version
+
+
                - exec: # run command that executes the tests
                    command: sudo
                    arguments:
