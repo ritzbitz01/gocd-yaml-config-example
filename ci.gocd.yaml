@@ -90,6 +90,11 @@ pipelines:
                    - ls
                    - -lah
 
+               - exec: # test
+                   command: ls
+                   arguments:
+                   - -lah
+
                - exec: # run command that executes the tests
                    command: sudo
                    arguments:
