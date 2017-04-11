@@ -49,16 +49,19 @@ pipelines:
                - exec: # test
                    command: env
 
-#               - exec: # test
-#                   command: sudo
-#                   arguments:
-#                   - docker
-#                   - version
+               - exec: # test
+                   command: sudo
+                   arguments:
+                   - env
 
-
+               - exec: # test
+                   command: sudo
+                   arguments:
+                   - docker
+                   - version
 
                - exec: # run command that executes the tests
-                   command: DOCKER_API_VERSION=${DOCKER_API_VERSION} sudo
+                   command: sudo
                    arguments:
                    - docker
                    - exec
