@@ -49,11 +49,11 @@ pipelines:
                - exec: # test
                    command: env
 
-               - exec: # test
-                   command: sudo
-                   arguments:
-                   - docker
-                   - version
+#               - exec: # test
+#                   command: sudo
+#                   arguments:
+#                   - docker
+#                   - version
 
 
 
