@@ -52,6 +52,9 @@ pipelines:
                    - docker
                    - version
 
+               - exec: # test
+                   command: env
+
 
                - exec: # run command that executes the tests
                    command: sudo
