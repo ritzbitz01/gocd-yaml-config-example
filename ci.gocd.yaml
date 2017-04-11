@@ -55,6 +55,13 @@ pipelines:
                    - env
 
                - exec: # test
+                   command: ls
+                   arguments:
+                   - -lah
+                   - /var/run/
+
+
+               - exec: # test
                    command: sudo
                    arguments:
                    - docker
