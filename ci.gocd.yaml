@@ -49,10 +49,10 @@ pipelines:
                - exec: # test
                    command: env
 
-               - exec: # test
-                   command: sudo
-                   arguments:
-                   - env
+#               - exec: # test
+#                   command: sudo
+#                   arguments:
+#                   - env
 
                - exec: # test
                    command: ls
