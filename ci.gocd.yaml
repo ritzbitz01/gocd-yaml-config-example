@@ -90,6 +90,15 @@ pipelines:
                    - ls
                    - -lah
 
+               - exec: # run command that executes the tests
+                   command: sudo
+                   arguments:
+                   - docker
+                   - exec
+                   - helloworld_web_1
+                   - cat
+                   - ./run_test.sh
+
 
                - exec: # run command that executes the tests
                    command: sudo
