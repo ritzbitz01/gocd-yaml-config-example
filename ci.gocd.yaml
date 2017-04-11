@@ -47,13 +47,14 @@ pipelines:
                    - 4
 
                - exec: # test
+                   command: env
+
+               - exec: # test
                    command: sudo
                    arguments:
                    - docker
                    - version
 
-               - exec: # test
-                   command: env
 
 
                - exec: # run command that executes the tests
