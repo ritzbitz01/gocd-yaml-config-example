@@ -49,6 +49,14 @@ pipelines:
           jobs:
             build: # name of the job
               tasks:
+               - exec: # Give the app a few seconds to finish initialisig
+                   command: pwd
+
+               - exec: # Give the app a few seconds to finish initialisig
+                   command: ls
+                   arguments:
+                   - -lah
+
                - exec: # Spin up containers used by application under test
                    command: sudo
                    arguments:
