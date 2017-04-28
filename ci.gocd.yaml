@@ -27,24 +27,59 @@ pipelines:
         git: https://github.com/klub/restservice.git
         branch: dockerise-app
     stages:
-      - build: # name of stage
-          jobs:
-            build: # name of the job
-              tasks:
-               - exec: # indicates type of task
-                   command: make
-                   arguments:
-                   - build
+#      - build: # name of stage
+#          jobs:
+#            build: # name of the job
+#              tasks:
+#               - exec: # indicates type of task
+#                   command: make
+#                   arguments:
+#                   - build
+#
+#      - run_tests: # name of stage
+#          jobs:
+#            build: # name of the job
+#              tasks:
+#               - exec: # indicates type of task
+#                   command: make
+#                   arguments:
+#                   - tests-pull-request
 
-      - run_tests: # name of stage
+      - build: # build the app
           jobs:
             build: # name of the job
               tasks:
-               - exec: # indicates type of task
-                   command: make
+               - exec: # Spin up containers used by application under test
+                   command: sudo
                    arguments:
+                   - docker-compose
+                   - -f
+                   - docker-compose.test.yml
+                   - up
+                   - -d
+                   - --build
+
+               - exec: # Give the app a few seconds to finish initialisig
+                   command: sleep
+                   arguments:
+                   - 4
+
+               - exec: # run command that executes the tests
+                   command: sudo
+                   arguments:
+                   - docker
+                   - exec
+                   - make
                    - tests-pull-request
 
+               - exec: # Spin down containers used by application under test
+                   run_if: any
+                   command: sudo
+                   arguments:
+                   - docker-compose
+                   - -f
+                   - docker-compose.test.yml
+                   - down
 
   basic-ci-counter-app:
     group: simple
