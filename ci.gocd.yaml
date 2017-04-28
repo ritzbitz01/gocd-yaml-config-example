@@ -25,6 +25,7 @@ pipelines:
       mygit:  # this is the name of material
         # says about type of material and url at once
         git: https://github.com/klub/restservice.git
+        branch: dockerise-app
     stages:
       - build: # name of stage
           jobs:
