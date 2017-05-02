@@ -78,19 +78,19 @@ pipelines:
                    - -f
                    - docker-compose.test.yml
                    - up
-                   - -d
                    - --build
 
                - exec: # Give the app a few seconds to finish initialisig
                    command: sleep
                    arguments:
-                   - 4
+                   - 10
 
                - exec: # run command that executes the tests
                    command: sudo
                    arguments:
                    - docker
                    - exec
+                   - restservice_web_1
                    - make
                    - tests-pull-request
 
