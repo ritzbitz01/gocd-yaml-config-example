@@ -57,21 +57,19 @@ pipelines:
                    arguments:
                    - -lah
 
-               - exec: # Give the app a few seconds to finish initialisig
-                   command: echo
-                   arguments:
-                   - $(cat /proc/self/cgroup | grep -o  -e "docker-.*.scope" | head -n 1 | sed "s/docker-\(.*\).scope/\\1/")
-
-
-               - exec: # Give the app a few seconds to finish initialisig
-                   command: sudo
-                   arguments:
-                   - docker
-                   - inspect
-                   - -f '{{ .Volumes }}'
-                   - $(cat /proc/self/cgroup | grep -o  -e "docker-.*.scope" | head -n 1 | sed "s/docker-\(.*\).scope/\\1/")
-
-
+#               - exec: # Give the app a few seconds to finish initialisig
+#                   command: $(cat /proc/self/cgroup | grep -o  -e "docker-.*.scope" | head -n 1 | sed "s/docker-\(.*\).scope/\\1/")
+#
+#
+#               - exec: # Give the app a few seconds to finish initialisig
+#                   command: sudo
+#                   arguments:
+#                   - docker
+#                   - inspect
+#                   - -f '{{ .Volumes }}'
+#                   - $(cat /proc/self/cgroup | grep -o  -e "docker-.*.scope" | head -n 1 | sed "s/docker-\(.*\).scope/\\1/")
+#
+#
 
                - exec: # Spin up containers used by application under test
                    command: sudo
