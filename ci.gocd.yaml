@@ -74,16 +74,16 @@ pipelines:
                - exec: # Spin up containers used by application under test
                    command: sudo
                    arguments:
-                   - docker-compose
-                   - -f
-                   - docker-compose.test.yml
-                   - up
-                   - --build
+                   - ./bootstrap-for-ci.sh
+#                   - -f
+#                   - docker-compose.test.yml
+#                   - up
+#                   - --build
 
-               - exec: # Give the app a few seconds to finish initialisig
-                   command: sleep
-                   arguments:
-                   - 10
+#               - exec: # Give the app a few seconds to finish initialisig
+#                   command: sleep
+#                   arguments:
+#                   - 10
 
                - exec: # run command that executes the tests
                    command: sudo
