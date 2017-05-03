@@ -98,7 +98,7 @@ pipelines:
                    arguments:
                    - docker
                    - exec
-                   - restservice_web_1
+                   - runprtests_web_1
                    - make
                    - tests-pull-request
 
