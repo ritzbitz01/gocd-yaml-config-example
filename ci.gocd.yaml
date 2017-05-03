@@ -88,6 +88,14 @@ pipelines:
                - exec: # run command that executes the tests
                    command: sudo
                    arguments:
+                   - docker-compose
+                   - -f
+                   - docker-compose.test.yml
+                   - ps
+
+               - exec: # run command that executes the tests
+                   command: sudo
+                   arguments:
                    - docker
                    - exec
                    - restservice_web_1
