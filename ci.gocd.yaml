@@ -27,24 +27,6 @@ pipelines:
         git: https://github.com/klub/restservice.git
         branch: dockerise-app
     stages:
-#      - build: # name of stage
-#          jobs:
-#            build: # name of the job
-#              tasks:
-#               - exec: # indicates type of task
-#                   command: make
-#                   arguments:
-#                   - build
-#
-#      - run_tests: # name of stage
-#          jobs:
-#            build: # name of the job
-#              tasks:
-#               - exec: # indicates type of task
-#                   command: make
-#                   arguments:
-#                   - tests-pull-request
-
       - build: # build the app
           jobs:
             build: # name of the job
@@ -57,33 +39,10 @@ pipelines:
                    arguments:
                    - -lah
 
-#               - exec: # Give the app a few seconds to finish initialisig
-#                   command: $(cat /proc/self/cgroup | grep -o  -e "docker-.*.scope" | head -n 1 | sed "s/docker-\(.*\).scope/\\1/")
-#
-#
-#               - exec: # Give the app a few seconds to finish initialisig
-#                   command: sudo
-#                   arguments:
-#                   - docker
-#                   - inspect
-#                   - -f '{{ .Volumes }}'
-#                   - $(cat /proc/self/cgroup | grep -o  -e "docker-.*.scope" | head -n 1 | sed "s/docker-\(.*\).scope/\\1/")
-#
-#
-
                - exec: # Spin up containers used by application under test
                    command: /bin/bash
                    arguments:
                    - ./bootstrap-for-ci.sh
-#                   - -f
-#                   - docker-compose.test.yml
-#                   - up
-#                   - --build
-
-#               - exec: # Give the app a few seconds to finish initialisig
-#                   command: sleep
-#                   arguments:
-#                   - 10
 
                - exec: # run command that executes the tests
                    command: sudo
