@@ -72,9 +72,9 @@ pipelines:
 #
 
                - exec: # Spin up containers used by application under test
-                   command: ./bootstrap-for-ci.sh
-#                   arguments:
-#                   - ./bootstrap-for-ci.sh
+                   command: /bin/bash
+                   arguments:
+                   - ./bootstrap-for-ci.sh
 #                   - -f
 #                   - docker-compose.test.yml
 #                   - up
