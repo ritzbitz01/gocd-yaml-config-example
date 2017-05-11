@@ -100,36 +100,36 @@ pipelines:
                    arguments:
                    - -lah
 
-#               - exec: # Spin up containers used by application under test
-#                   command: /bin/bash
-#                   arguments:
-#                   - ./bootstrap-for-ci.sh
-#
-#               - exec: # run command that executes the tests
-#                   command: sudo
-#                   arguments:
-#                   - docker-compose
-#                   - -f
-#                   - docker-compose.test.yml
-#                   - ps
-#
-#               - exec: # run command that executes the tests
-#                   command: sudo
-#                   arguments:
-#                   - docker
-#                   - exec
-#                   - runprtests_web_1
-#                   - make
-#                   - tests-pull-request
-#
-#               - exec: # Spin down containers used by application under test
-#                   run_if: any
-#                   command: sudo
-#                   arguments:
-#                   - docker-compose
-#                   - -f
-#                   - docker-compose.test.yml
-#                   - down
+               - exec: # Spin up containers used by application under test
+                   command: /bin/bash
+                   arguments:
+                   - ./bootstrap-for-ci.sh
+
+               - exec: # run command that executes the tests
+                   command: sudo
+                   arguments:
+                   - docker-compose
+                   - -f
+                   - docker-compose.test.yml
+                   - ps
+
+               - exec: # run command that executes the tests
+                   command: sudo
+                   arguments:
+                   - docker
+                   - exec
+                   - runprtests_web_1
+                   - make
+                   - tests-pull-request
+
+               - exec: # Spin down containers used by application under test
+                   run_if: any
+                   command: sudo
+                   arguments:
+                   - docker-compose
+                   - -f
+                   - docker-compose.test.yml
+                   - down
 
 
   basic-ci-counter-app:
