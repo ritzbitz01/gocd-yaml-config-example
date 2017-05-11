@@ -73,10 +73,11 @@ pipelines:
   run_pr_tests:
     group: Rest_API_Service
     materials:
-      mygit:  # this is the name of material
-        # says about type of material and url at once
-        git: https://github.com/klub/restservice.git
-        branch: dockerise-app
+#      mygit:  # this is the name of material
+#        # says about type of material and url at once
+#        git: https://github.com/klub/restservice.git
+#        branch: dockerise-app
+#        destination:
 
       myPluggableGit:
         scm: 3ddf23b6-31a6-4567-86cc-3882ad66565a
