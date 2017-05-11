@@ -81,7 +81,7 @@ pipelines:
 
       myPluggableGit:
         scm: 3ddf23b6-31a6-4567-86cc-3882ad66565a
-        destination: dest2
+        destination: restservice
 #        blacklist:
 #          - dir1
 #          - dir2
@@ -101,11 +101,13 @@ pipelines:
                    - -lah
 
                - exec: # Spin up containers used by application under test
+                   working_directory: restservice
                    command: /bin/bash
                    arguments:
                    - ./bootstrap-for-ci.sh
 
                - exec: # run command that executes the tests
+                   working_directory: restservice
                    command: sudo
                    arguments:
                    - docker-compose
@@ -114,6 +116,7 @@ pipelines:
                    - ps
 
                - exec: # run command that executes the tests
+                   working_directory: restservice
                    command: sudo
                    arguments:
                    - docker
@@ -123,6 +126,7 @@ pipelines:
                    - tests-pull-request
 
                - exec: # Spin down containers used by application under test
+                   working_directory: restservice
                    run_if: any
                    command: sudo
                    arguments:
