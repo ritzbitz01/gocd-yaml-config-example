@@ -81,7 +81,7 @@ pipelines:
 
       myPluggableGit:
 #        scm: 3ddf23b6-31a6-4567-86cc-3882ad66565a
-        scm: "${GO_SERVER_PIPELINE_RESTSERVICE_SCM_ID}"
+        scm: ${GO_SERVER_PIPELINE_RESTSERVICE_SCM_ID}
         destination: restservice
 #        blacklist:
 #          - dir1
