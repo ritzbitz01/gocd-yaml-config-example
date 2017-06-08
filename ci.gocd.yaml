@@ -231,7 +231,7 @@ pipelines:
                    - app_package_name_loc=./restservice-0.0.5-SNAPSHOT.jar
                    - package_install_loc=/home/ubuntu/restservice-0.0.5-SNAPSHOT.jar
                    - ec2_instance_type=t2.micro
-                   - packerfile=/opt/share/restservicejavamaven.json
+                   - packerfile=./restservicejavamaven.json
                    - app_ami_name=RestServiceUSE1-AMI
                    - pipeline_id=RestServiceBuild-1
                    - packer_timeout=1200
