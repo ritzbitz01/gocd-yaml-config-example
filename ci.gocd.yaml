@@ -222,6 +222,12 @@ pipelines:
                    - buildami_web_1:/app/packer/restservicejavamaven.json
                    - ./
 
+               - exec: #check all expected files are present
+                   command: ls
+                   arguments:
+                   - -lah
+                   - ./
+
                - exec: # Run stackstorm to create ami
                    command: st2
                    arguments:
