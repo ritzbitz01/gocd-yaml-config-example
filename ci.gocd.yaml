@@ -202,7 +202,7 @@ pipelines:
                    arguments:
                    - docker
                    - exec
-                   - restservice_web_1
+                   - buildami_web_1
                    - make
                    - tests-pull-request
 
@@ -211,7 +211,7 @@ pipelines:
                    arguments:
                    - docker
                    - cp
-                   - runprtests_web_1:/app/target/restservice-0.0.5-SNAPSHOT.jar
+                   - buildami_web_1:/app/target/restservice-0.0.5-SNAPSHOT.jar
                    - ./
 
                - exec: # copy packer file from container
@@ -219,7 +219,7 @@ pipelines:
                    arguments:
                    - docker
                    - cp
-                   - runprtests_web_1:/app/packer/restservicejavamaven.json
+                   - buildami_web_1:/app/packer/restservicejavamaven.json
                    - ./
 
                - exec: # Run stackstorm to create ami
