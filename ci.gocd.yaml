@@ -181,52 +181,55 @@ pipelines:
                    arguments:
                    - branch
 
-               - exec: # Spin up containers used by application under test
-#                   working_directory: restservice
-                   command: /bin/bash
-                   arguments:
-                   - ./bootstrap-for-ci.sh
-
-               - exec: # run command that executes the tests
-#                   working_directory: restservice
-                   command: sudo
-                   arguments:
-                   - docker-compose
-                   - -f
-                   - docker-compose.test.yml
-                   - ps
-
-               - exec: # run command that executes the tests
-#                   working_directory: restservice
-                   command: sudo
-                   arguments:
-                   - docker
-                   - exec
-                   - buildami_web_1
-                   - make
-                   - tests-pull-request
-
-               - exec: # copy artifact from container
-                   command: sudo
-                   arguments:
-                   - docker
-                   - cp
-                   - buildami_web_1:/app/target/restservice-0.0.5-SNAPSHOT.jar
-                   - ./
-
-               - exec: # copy packer file from container
-                   command: sudo
-                   arguments:
-                   - docker
-                   - cp
-                   - buildami_web_1:/app/packer/restservicejavamaven.json
-                   - ./
+#               - exec: # Spin up containers used by application under test
+##                   working_directory: restservice
+#                   command: /bin/bash
+#                   arguments:
+#                   - ./bootstrap-for-ci.sh
+#
+#               - exec: # run command that executes the tests
+##                   working_directory: restservice
+#                   command: sudo
+#                   arguments:
+#                   - docker-compose
+#                   - -f
+#                   - docker-compose.test.yml
+#                   - ps
+#
+#               - exec: # run command that executes the tests
+##                   working_directory: restservice
+#                   command: sudo
+#                   arguments:
+#                   - docker
+#                   - exec
+#                   - buildami_web_1
+#                   - make
+#                   - tests-pull-request
+#
+#               - exec: # copy artifact from container
+#                   command: sudo
+#                   arguments:
+#                   - docker
+#                   - cp
+#                   - buildami_web_1:/app/target/restservice-0.0.5-SNAPSHOT.jar
+#                   - ./
+#
+#               - exec: # copy packer file from container
+#                   command: sudo
+#                   arguments:
+#                   - docker
+#                   - cp
+#                   - buildami_web_1:/app/packer/restservicejavamaven.json
+#                   - ./
 
                - exec: #check all expected files are present
                    command: ls
                    arguments:
                    - -lah
                    - ./
+
+               - exec: #check all expected files are present
+                   command: pwd
 
                - exec: # Run stackstorm to create ami
                    command: st2
