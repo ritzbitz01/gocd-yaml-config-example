@@ -91,7 +91,7 @@ pipelines:
     stages:
       - Verify: # build the app
           jobs:
-            CodeCoverage: # name of the job
+            - CodeCoverage: # name of the job
               tasks:
                - exec: # Give the app a few seconds to finish initialisig
                    command: mvn
@@ -100,7 +100,7 @@ pipelines:
                    - test
       - Compile:
         jobs:
-          compile:
+          - compile:
             tasks:
               - exec:
                 command: maven
@@ -109,7 +109,7 @@ pipelines:
                   - package
       - Deploy:
         jobs:
-          deploy:
+          - deploy:
             tasks:
               - exec:
                 command: /bin/sh
