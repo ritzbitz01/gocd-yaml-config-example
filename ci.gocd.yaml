@@ -91,7 +91,7 @@ pipelines:
     stages:
       - Verify: # build the app
           jobs:
-            - CodeCoverage: # name of the job
+            CodeCoverage: # name of the job
               tasks:
                - exec: # Give the app a few seconds to finish initialisig
                    command: mvn
@@ -99,23 +99,23 @@ pipelines:
                    - clean
                    - test
       - Compile:
-        jobs:
-          - compile:
-            tasks:
-              - exec:
-                command: maven
-                arguments:
-                  - clean
-                  - package
+          jobs:
+            compile:
+              tasks:
+                - exec:
+                  command: mvn
+                  arguments:
+                    - clean
+                    - package
       - Deploy:
-        jobs:
-          - deploy:
-            tasks:
-              - exec:
-                command: /bin/sh
-                arguments:
-                  - -c
-                  - cp packer/restservicejavamaven.json target/restservicejavamaven-0.0.1-SNAPSHOT.deb /Users/uritzry/GoCDPOC
+          jobs:
+            deploy:
+              tasks:
+                - exec:
+                  command: /bin/sh
+                  arguments:
+                    - -c
+                    - cp packer/restservicejavamaven.json target/restservicejavamaven-0.0.1-SNAPSHOT.deb /Users/uritzry/GoCDPOC
 
 
 #   build_ami:
