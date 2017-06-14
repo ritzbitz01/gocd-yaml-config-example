@@ -19,13 +19,11 @@ pipelines:
     #                command: pwd
 
     stages:
-      -
-        Verify:
+      - build:
           jobs:
-            CodeCoverage:
+            build:
               tasks:
-                -
-                  exec:
+                - exec:
                     arguments:
                       - clean
                       - test
