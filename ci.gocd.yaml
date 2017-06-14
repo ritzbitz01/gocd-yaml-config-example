@@ -22,25 +22,25 @@ pipelines:
                       - clean
                       - test
                     command: mvn
-      -
-        Compile:
-          jobs:
-            compile:
-              tasks:
-                -
-                  arguments:
-                    - clean
-                    - package
-                  command: mvn
-                  exec: ~
-      -
-        Deploy:
-          jobs:
-            deploy:
-              tasks:
-                -
-                  arguments:
-                    - "-c"
-                    - "cp packer/restservicejavamaven.json target/restservicejavamaven-0.0.1-SNAPSHOT.deb /Users/uritzry/GoCDPOC"
-                  command: /bin/sh
-                  exec: ~
+      # -
+      #   Compile:
+      #     jobs:
+      #       compile:
+      #         tasks:
+      #           -
+      #             arguments:
+      #               - clean
+      #               - package
+      #             command: mvn
+      #             exec: ~
+      # -
+      #   Deploy:
+      #     jobs:
+      #       deploy:
+      #         tasks:
+      #           -
+      #             arguments:
+      #               - "-c"
+      #               - "cp packer/restservicejavamaven.json target/restservicejavamaven-0.0.1-SNAPSHOT.deb /Users/uritzry/GoCDPOC"
+      #             command: /bin/sh
+      #             exec: ~
