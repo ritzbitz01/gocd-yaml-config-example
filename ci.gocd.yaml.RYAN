@@ -11,25 +11,17 @@ pipelines:
         destination: restservicejavamaven
         scm: restservicejavamaven-scm-id
     stages:
-      - build: # build the app
+      -
+        Verify:
           jobs:
-            build: # name of the job
+            CodeCoverage:
               tasks:
-               - exec: # Give the app a few seconds to finish initialisig
-                   command: pwd
-
-    # stages:
-    #   -
-    #     Verify:
-    #       jobs:
-    #         CodeCoverage:
-    #           tasks:
-    #             -
-    #               exec:
-    #                 arguments:
-    #                   - clean
-    #                   - test
-    #                 command: mvn
+                -
+                  exec:
+                    arguments:
+                      - clean
+                      - test
+                    command: mvn
       # -
       #   Compile:
       #     jobs:
