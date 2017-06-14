@@ -4,8 +4,8 @@ environments:
     environment_variables:
       EXAMPLE_DEPLOYMENT: testing
 pipelines:
-  MavenBuild:
-    group: RestServiceDeliveryPipeline
+  DockerMavenBuild:
+    group: RestServiceDeliveryDocker
     materials:
       myPluggableGit:
         destination: restservice
