@@ -8,8 +8,8 @@ pipelines:
     group: RestServiceDeliveryPipeline
     materials:
       myPluggableGit:
-        destination: restservicejavamaven
-        scm: restservicejavamaven-scm-id
+        destination: restservice
+        scm: restservice-scm-id
     stages:
       - build: # build the app
           jobs:
