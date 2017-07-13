@@ -101,7 +101,7 @@ pipelines:
                       - st2 run nibiru.build_app_ec2_instance_mistral app_ami_name=RestServiceJavaMaven-usw1 key_name=gocd-usw1-key-cust security_group_id=sg-9fef06f9 instance_type=t2.micro app_instance_name=RestServiceJavaMavenInstance pipeline_id=${GO_PIPELINE_LABEL} region=us-west-1
   start-app:
     group: RestServiceDeliveryPipeline
-    label_template: "${create-instance}"
+    # label_template: "${create-instance}"
     locking: off
     materials:
       upstream:
@@ -122,7 +122,7 @@ pipelines:
                       - run nibiru.start_java_debian_app_mistral app_ami_name=RestServiceJavaMaven-usw1 pipeline_id=${GO_PIPELINE_LABEL} packagename=RestServiceJavaMaven-usw1-0.0.1-SNAPSHOT.deb servicename=restservicejavamaven key_file_name=/opt/share/gocd-use1-key.pem region=us-west-1
   integration-tests:
     group: RestServiceDeliveryPipeline
-    label_template: "${start-app}"
+    # label_template: "${start-app}"
     locking: off
     materials:
       upstream:
@@ -146,7 +146,7 @@ pipelines:
                       - mvn verify -DconsulUrl=RestServiceJavaMaven-usw1-${GO_PIPELINE_LABEL}
   performance-tests:
     group: RestServiceDeliveryPipeline
-    label_template: "${start-app}"
+    # label_template: "${start-app}"
     locking: off
     materials:
       upstream:
@@ -184,7 +184,7 @@ pipelines:
                       - "-j ~/GoCDPOC/jmeterlog-${COUNT}"
   cleanup-pipeline:
     group: RestServiceDeliveryPipeline
-    label_template: "${integration-tests}"
+    # label_template: "${integration-tests}"
     locking: off
     materials:
       upstream1:
