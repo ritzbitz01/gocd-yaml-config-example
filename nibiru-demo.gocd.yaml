@@ -1,7 +1,7 @@
 ---
 pipelines:
   maven-build:
-    group: RestServiceDeliveryPipeline
+    group: RestServiceYAMLPipeline
     environment_variables:
       BON: klu
     label_template: "restservicejavamaven-usw1-${COUNT}"
@@ -55,7 +55,7 @@ pipelines:
                     -  python build/saveartifacts.py /opt/${GO_PIPELINE_LABEL}.json ${GO_PIPELINE_LABEL} target/restservicejavamaven-0.0.1-SNAPSHOT.deb  packer/restservicejavamaven.json aws/gocd-usw1-key-cust.pem us-west-1
 
   build-ami:
-    group: RestServiceDeliveryPipeline
+    group: RestServiceYAMLPipeline
     label_template: "${maven-build}"
     locking: off
     materials:
@@ -79,7 +79,7 @@ pipelines:
                       - st2 run nibiru.build_app_ami_chain os_name=ubuntu1604 package_install_loc=/home/ubuntu/RestServiceJavaMaven-usw1-0.0.1-SNAPSHOT.deb ec2_instance_type=t2.micro app_ami_name=restservicejavamaven-usw1 pipeline_id=${GO_PIPELINE_LABEL} packer_timeout=1200 region=us-west-1
 
   create-instance:
-    group: RestServiceDeliveryPipeline
+    group: RestServiceYAMLPipeline
     labeltemplate: "${build-ami}"
     locking: off
     materials:
@@ -100,7 +100,7 @@ pipelines:
                       - -c
                       - st2 run nibiru.build_app_ec2_instance_mistral app_ami_name=RestServiceJavaMaven-usw1 key_name=gocd-usw1-key-cust security_group_id=sg-9fef06f9 instance_type=t2.micro app_instance_name=RestServiceJavaMavenInstance pipeline_id=${GO_PIPELINE_LABEL} region=us-west-1
   start-app:
-    group: RestServiceDeliveryPipeline
+    group: RestServiceYAMLPipeline
     # label_template: "${create-instance}"
     locking: off
     materials:
@@ -121,7 +121,7 @@ pipelines:
                       - -c
                       - run nibiru.start_java_debian_app_mistral app_ami_name=RestServiceJavaMaven-usw1 pipeline_id=${GO_PIPELINE_LABEL} packagename=RestServiceJavaMaven-usw1-0.0.1-SNAPSHOT.deb servicename=restservicejavamaven key_file_name=/opt/share/gocd-use1-key.pem region=us-west-1
   integration-tests:
-    group: RestServiceDeliveryPipeline
+    group: RestServiceYAMLPipeline
     # label_template: "${start-app}"
     locking: off
     materials:
@@ -145,7 +145,7 @@ pipelines:
                       - -c
                       - mvn verify -DconsulUrl=RestServiceJavaMaven-usw1-${GO_PIPELINE_LABEL}
   performance-tests:
-    group: RestServiceDeliveryPipeline
+    group: RestServiceYAMLPipeline
     # label_template: "${start-app}"
     locking: off
     materials:
@@ -183,7 +183,7 @@ pipelines:
                       - "~/GoCDPOC/testresult-${APP_AMI_NAME}-${GO_PIPELINE_LABEL}.jtl"
                       - "-j ~/GoCDPOC/jmeterlog-${COUNT}"
   cleanup-pipeline:
-    group: RestServiceDeliveryPipeline
+    group: RestServiceYAMLPipeline
     # label_template: "${integration-tests}"
     locking: off
     materials:
