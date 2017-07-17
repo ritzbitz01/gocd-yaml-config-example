@@ -54,6 +54,7 @@ pipelines:
                   pipeline: MavenBuild
                   stage: compile
                   job: compile
+                  is_file: yes
                   source: restservicejavamaven-0.0.1-SNAPSHOT.deb
               - exec:
                   run_if: passed
