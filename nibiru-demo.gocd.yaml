@@ -56,7 +56,7 @@ pipelines:
 
   BuildAmi:
     group: RestServiceYAMLPipeline
-    label_template: "${maven-build}"
+    label_template: "${MavenBuild}"
     locking: off
     materials:
       MavenBuild:
@@ -80,7 +80,7 @@ pipelines:
 
   CreateInstance:
     group: RestServiceYAMLPipeline
-    label_template: "${build-ami}"
+    label_template: "${BuildAmi}"
     locking: off
     materials:
       BuildAmi:
