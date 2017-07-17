@@ -126,7 +126,7 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - st2 run nibiru.start_java_debian_app_mistral app_ami_name=RestServiceJavaMaven-usw1 pipeline_id=${GO_PIPELINE_LABEL} packagename=RestServiceJavaMaven-usw1-0.0.1-SNAPSHOT.deb servicename=restservicejavamaven key_file_name=/opt/share/gocd-use1-key.pem region=us-west-1 assume_role_arn=arn:aws:iam::410908411653:role/st2_role
+                      - st2 run nibiru.start_java_debian_app_mistral app_ami_name=restservicejavamaven-usw1 pipeline_id=${GO_PIPELINE_LABEL} packagename=RestServiceJavaMaven-usw1-0.0.1-SNAPSHOT.deb servicename=restservicejavamaven key_file_name=/opt/share/gocd-use1-key.pem region=us-west-1 assume_role_arn=arn:aws:iam::410908411653:role/st2_role
   IntegrationTests:
     group: RestServiceYAMLPipeline
     label_template: "${StartApp}"
@@ -212,4 +212,4 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - st2 run nibiru.terminate_ec2_instance_chain app_ami_name=RestServiceJavaMaven-usw1 pipeline_id=${GO_PIPELINE_LABEL} assume_role_arn=arn:aws:iam::410908411653:role/st2_role
+                      - st2 run nibiru.terminate_ec2_instance_chain app_ami_name=restservicejavamaven-usw1 pipeline_id=${GO_PIPELINE_LABEL} assume_role_arn=arn:aws:iam::410908411653:role/st2_role
