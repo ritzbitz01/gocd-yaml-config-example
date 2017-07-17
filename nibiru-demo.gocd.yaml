@@ -20,6 +20,7 @@ pipelines:
                - exec:
                    command: mvn
                    arguments:
+                    - "-B"
                     - "clean"
                     - "test"
       - compile:
@@ -31,14 +32,14 @@ pipelines:
                - exec:
                    command: mvn
                    arguments:
+                    - "-B"
                     - "clean"
                     - "package"
       - deploy:
          jobs:
            deploy:
              resources:
-              - maven
-              - awscli
+              - st2
              tasks:
               - exec:
                   run_if: passed
