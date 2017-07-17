@@ -1,6 +1,6 @@
 ---
 pipelines:
-  maven-build:
+  MavenBuild:
     group: RestServiceYAMLPipeline
     environment_variables:
       BON: klu
@@ -54,13 +54,13 @@ pipelines:
                     - -c
                     -  python build/saveartifacts.py ./${GO_PIPELINE_LABEL}.json ${GO_PIPELINE_LABEL} target/restservicejavamaven-0.0.1-SNAPSHOT.deb  packer/restservicejavamaven.json aws/gocd-usw1-key-cust.pem us-west-1
 
-  build-ami:
+  BuildAmi:
     group: RestServiceYAMLPipeline
     label_template: "${maven-build}"
     locking: off
     materials:
-      maven-build:
-        pipeline: maven-build
+      MavenBuild:
+        pipeline: MavenBuild
         stage: deploy
     stages:
       - create-ami:
@@ -78,13 +78,13 @@ pipelines:
                       - -c
                       - st2 run nibiru.build_app_ami_chain os_name=ubuntu1604 package_install_loc=/home/ubuntu/RestServiceJavaMaven-usw1-0.0.1-SNAPSHOT.deb ec2_instance_type=t2.micro app_ami_name=restservicejavamaven-usw1 pipeline_id=${GO_PIPELINE_LABEL} packer_timeout=1200 region=us-west-1 assume_role_arn="arn:aws:iam::410908411653:role/st2_role"
 
-  create-instance:
+  CreateInstance:
     group: RestServiceYAMLPipeline
     label_template: "${build-ami}"
     locking: off
     materials:
-      upstream:
-        pipeline: build-ami
+      BuildAmi:
+        pipeline: BuildAmi
         stage: create-ami
     stages:
       - create-instance:
@@ -99,13 +99,13 @@ pipelines:
                     arguments:
                       - -c
                       - st2 run nibiru.build_app_ec2_instance_mistral app_ami_name=RestServiceJavaMaven-usw1 key_name=gocd-usw1-key-cust security_group_id=sg-9fef06f9 instance_type=t2.micro app_instance_name=RestServiceJavaMavenInstance pipeline_id=${GO_PIPELINE_LABEL} region=us-west-1 assume_role_arn=arn:aws:iam::410908411653:role/st2_role
-  start-app:
+  StartApp:
     group: RestServiceYAMLPipeline
-    label_template: "${create-instance}"
+    label_template: "${CreateInstance}"
     locking: off
     materials:
-      upstream:
-        pipeline: create-instance
+      CreateInstance:
+        pipeline: CreateInstance
         stage: create-instance
     stages:
       - start-app:
@@ -120,13 +120,13 @@ pipelines:
                     arguments:
                       - -c
                       - st2 run nibiru.start_java_debian_app_mistral app_ami_name=RestServiceJavaMaven-usw1 pipeline_id=${GO_PIPELINE_LABEL} packagename=RestServiceJavaMaven-usw1-0.0.1-SNAPSHOT.deb servicename=restservicejavamaven key_file_name=/opt/share/gocd-use1-key.pem region=us-west-1 assume_role_arn=arn:aws:iam::410908411653:role/st2_role
-  integration-tests:
+  IntegrationTests:
     group: RestServiceYAMLPipeline
-    label_template: "${start-app}"
+    label_template: "${StartApp}"
     locking: off
     materials:
-      upstream:
-        pipeline: start-app
+      StartApp:
+        pipeline: StartApp
         stage: start-app
       rest-service:
         git: git@github.com:pearsontechnology/restservicejavamaven.git
@@ -144,13 +144,13 @@ pipelines:
                     arguments:
                       - -c
                       - mvn verify -DconsulUrl=RestServiceJavaMaven-usw1-${GO_PIPELINE_LABEL}
-  performance-tests:
+  PerformanceTests:
     group: RestServiceYAMLPipeline
-    label_template: "${start-app}"
+    label_template: "${StartApp}"
     locking: off
     materials:
-      upstream:
-        pipeline: start-app
+      StartApp:
+        pipeline: StartApp
         stage: start-app
       rest-service:
         git: git@github.com:pearsontechnology/restservicejavamaven.git
@@ -184,14 +184,14 @@ pipelines:
                       - "-j ~/GoCDPOC/jmeterlog-${COUNT}"
   cleanup-pipeline:
     group: RestServiceYAMLPipeline
-    label_template: "${integration-tests}"
+    label_template: "${IntegrationTests}"
     locking: off
     materials:
-      upstream1:
-        pipeline: integration-tests
+      IntegrationTests:
+        pipeline: IntegrationTests
         stage: integration-tests
-      upstream2:
-        pipeline: performance-tests
+      PerformanceTests:
+        pipeline: PerformanceTests
         stage: performance-tests
     stages:
       - cleanup-artifacts:
