@@ -105,7 +105,7 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - st2 run nibiru.build_app_ec2_instance_mistral app_ami_name=RestServiceJavaMaven-usw1 key_name=gocd-usw1-key-cust instance_type=t2.micro app_instance_name=RestServiceJavaMavenInstance pipeline_id=${GO_PIPELINE_LABEL} region=us-west-1 assume_role_arn=arn:aws:iam::410908411653:role/st2_role
+                      - st2 run nibiru.build_app_ec2_instance_mistral app_ami_name=restservicejavamaven-usw1 key_name=gocd-usw1-key-cust instance_type=t2.micro app_instance_name=RestServiceJavaMavenInstance pipeline_id=${GO_PIPELINE_LABEL} region=us-west-1 assume_role_arn=arn:aws:iam::410908411653:role/st2_role
   StartApp:
     group: RestServiceYAMLPipeline
     label_template: "${CreateInstance}"
