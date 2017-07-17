@@ -27,12 +27,12 @@ pipelines:
           jobs:
             compile:
               resources:
-               - maven
+                - maven
               artifacts:
                 - build:
-                  source: target/restservicejavamaven-0.0.1-SNAPSHOT.deb
+                    source: target/restservicejavamaven-0.0.1-SNAPSHOT.deb
               tasks:
-               - exec:
+                - exec:
                    command: mvn
                    arguments:
                     - "-B"
@@ -51,16 +51,16 @@ pipelines:
                     - -c
                     - st2 run aws_boto3.sts_assume_role RoleArn="arn:aws:iam::410908411653:role/st2_role" RoleSessionName="${GO_PIPELINE_LABEL}Session" --json >> ./${GO_PIPELINE_LABEL}.json
               - fetch:
-                pipeline: MavenBuild
-                stage: compile
-                job: compile
-                source: target/restservicejavamaven-0.0.1-SNAPSHOT.deb
+                  pipeline: MavenBuild
+                  stage: compile
+                  job: compile
+                  source: restservicejavamaven-0.0.1-SNAPSHOT.deb
               - exec:
                   run_if: passed
                   command: /bin/bash
                   arguments:
                     - -c
-                    -  python build/saveartifacts.py ./${GO_PIPELINE_LABEL}.json ${GO_PIPELINE_LABEL} target/restservicejavamaven-0.0.1-SNAPSHOT.deb  packer/restservicejavamaven.json aws/gocd-usw1-key-cust.pem us-west-1
+                    -  python build/saveartifacts.py ./${GO_PIPELINE_LABEL}.json ${GO_PIPELINE_LABEL} restservicejavamaven-0.0.1-SNAPSHOT.deb  packer/restservicejavamaven.json aws/gocd-usw1-key-cust.pem us-west-1
 
   BuildAmi:
     group: RestServiceYAMLPipeline
