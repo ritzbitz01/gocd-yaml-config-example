@@ -182,7 +182,7 @@ pipelines:
                       - "-l"
                       - "~/GoCDPOC/testresult-${APP_AMI_NAME}-${GO_PIPELINE_LABEL}.jtl"
                       - "-j ~/GoCDPOC/jmeterlog-${COUNT}"
-  cleanup-pipeline:
+  CleanupPipeline:
     group: RestServiceYAMLPipeline
     label_template: "${IntegrationTests}"
     locking: off
