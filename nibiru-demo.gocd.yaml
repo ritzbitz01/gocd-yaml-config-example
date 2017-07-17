@@ -28,6 +28,9 @@ pipelines:
             compile:
               resources:
                - maven
+              artifacts:
+                - build:
+                  source: target/restservicejavamaven-0.0.1-SNAPSHOT.deb
               tasks:
                - exec:
                    command: mvn
@@ -47,7 +50,11 @@ pipelines:
                   arguments:
                     - -c
                     - st2 run aws_boto3.sts_assume_role RoleArn="arn:aws:iam::410908411653:role/st2_role" RoleSessionName="${GO_PIPELINE_LABEL}Session" --json >> ./${GO_PIPELINE_LABEL}.json
-
+              - fetch:
+                pipeline: MavenBuild
+                stage: compile
+                job: compile
+                source: target/restservicejavamaven-0.0.1-SNAPSHOT.deb
               - exec:
                   run_if: passed
                   command: /bin/bash
