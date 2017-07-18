@@ -150,45 +150,7 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - mvn verify -DINSTANCE_URL=$(st2 run consul.get key=restservicejavamaven-usw1-${GO_PIPELINE_LABEL}.instanceip -k result.Value | sed -n '1!p')
-  PerformanceTests:
-    group: RestServiceYAMLPipeline
-    label_template: "${StartApp}"
-    locking: off
-    materials:
-      StartApp:
-        pipeline: StartApp
-        stage: start-app
-      rest-service:
-        git: git@github.com:pearsontechnology/restservicejavamaven.git
-        branch: master
-    stages:
-      - performance-tests:
-          jobs:
-            run-jmeter-test:
-              resources:
-                - st2
-                - jmeter
-              tasks:
-                - exec:
-                    run_if: passed
-                    command: st2
-                    arguments:
-                      - "run"
-                      - "nibiru.setupjmetertestchain"
-                      - "app_ami_name=${APP_AMI_NAME}"
-                      - "pipeline_id=${GO_PIPELINE_LABEL}"
-                      - "jmeter_file=${JMETER_FILE_REMOTE}"
-                - exec:
-                    run_if: passed
-                    command: jmeter
-                    arguments:
-                      - "-n"
-                      - "-t"
-                      - "${JMETER_FILE_LOCAL}"
-                      - "-l"
-                      - "~/GoCDPOC/testresult-${APP_AMI_NAME}-${GO_PIPELINE_LABEL}.jtl"
-                      - "-j ~/GoCDPOC/jmeterlog-${COUNT}"
+                      - mvn verify -B -DINSTANCE_URL=$(st2 run consul.get key=restservicejavamaven-usw1-${GO_PIPELINE_LABEL}.instanceip -k result.Value | sed -n '1!p')
   CleanupPipeline:
     group: RestServiceYAMLPipeline
     label_template: "${IntegrationTests}"
@@ -197,9 +159,6 @@ pipelines:
       IntegrationTests:
         pipeline: IntegrationTests
         stage: integration-tests
-      PerformanceTests:
-        pipeline: PerformanceTests
-        stage: performance-tests
     stages:
       - cleanup-artifacts:
           jobs:
