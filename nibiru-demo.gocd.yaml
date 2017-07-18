@@ -143,7 +143,7 @@ pipelines:
           jobs:
             integration-tests:
               resources:
-                - maven
+                - st2
               tasks:
                 - exec:
                     run_if: passed
