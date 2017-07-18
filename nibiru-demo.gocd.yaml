@@ -150,7 +150,7 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - mvn verify -DINSTANCE_URL=$(st2 run consul.get key=restservicejavamaven-usw1-${GO_PIPELINE_LABEL}.instanceip)
+                      - mvn verify -DINSTANCE_URL=$(st2 run consul.get key=restservicejavamaven-usw1-${GO_PIPELINE_LABEL}.instanceip -k result.Value | sed -n '1!p')
   PerformanceTests:
     group: RestServiceYAMLPipeline
     label_template: "${StartApp}"
