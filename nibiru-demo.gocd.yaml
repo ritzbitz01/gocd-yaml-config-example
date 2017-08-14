@@ -151,6 +151,12 @@ pipelines:
                     arguments:
                       - -c
                       - mvn verify -B -DINSTANCE_URL=$(st2 run consul.get key=restservicejavamaven-usw1-${GO_PIPELINE_LABEL}.instanceip -k result.Value | sed -n '1!p')
+                - exec:
+                    run_if: passed
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - mvn verify -B -DINSTANCE_URL=$(st2 run consul.get key=restservicejavamaven-usw1-${GO_PIPELINE_LABEL}.privateip -k result.Value | sed -n '1!p')
   CleanupPipeline:
     group: RestServiceYAMLPipeline
     label_template: "${IntegrationTests}"
